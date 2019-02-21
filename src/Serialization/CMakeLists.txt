@@ -1,4 +1,4 @@
-add_library(Serialization SHARED BinaryWriter.cpp BinaryReader.cpp)
+add_library(Serialization SHARED BinaryWriter.cpp BinaryReader.cpp Serializable.cpp)
 target_compile_definitions(Serialization PUBLIC BUILDING_SERIALIZATION_DLL) 
 
 install(

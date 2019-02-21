@@ -1,7 +1,33 @@
 
 #include <Serialization/BinaryWriter.hpp>
 #include <Serialization/BinaryReader.hpp>
+#include <Serialization/Serializable.hpp>
 #include <fstream>
+
+class TestClass : public serialization::Serializable {
+  
+  int16_t m_Value;
+  
+  public:
+  TestClass(int16_t val) : m_Value(val) {
+  }
+  
+  ~TestClass() {}
+  
+  void load(serialization::BinaryReader& reader) override {
+    reader( m_Value );
+  }
+  
+  void save(const serialization::BinaryWriter& writer) const override {
+    writer( m_Value );
+  }
+  
+  int getValue() const {
+    return m_Value;    
+  }
+  
+};
+
 
 int main(int argc, char** argv) {
  
@@ -16,6 +42,7 @@ int main(int argc, char** argv) {
   std::string val7 = "Hello World";
   float val8 = 1.2345;
   double val9 = 6.7890;
+  TestClass val10(99);
   
   log << "Write Data... ";
   
@@ -33,6 +60,7 @@ int main(int argc, char** argv) {
         writer(val7);
         writer(val8);
         writer(val9);
+        writer(val10);
     }
     stream.close();
   }
@@ -48,6 +76,7 @@ int main(int argc, char** argv) {
   std::string ret7 = "";
   float ret8 = 0;
   double ret9 = 0;
+  TestClass ret10(0);
   
   log << "Read data... ";
   
@@ -65,6 +94,7 @@ int main(int argc, char** argv) {
         reader(ret7);
         reader(ret8);
         reader(ret9);
+        reader(ret10);
     }
     stream.close();
   }
@@ -113,6 +143,11 @@ int main(int argc, char** argv) {
   
   if(val9 != ret9) {
     log << "[ERROR] ret9 has wrong value " << ret9 << " should be " << val9 << std::endl;
+    return -1;
+  }
+  
+  if(val10.getValue() != ret10.getValue()) {
+    log << "[ERROR] ret10 has wrong value " << ret10.getValue() << " should be " << val10.getValue() << std::endl;
     return -1;
   }
   
