@@ -5,6 +5,7 @@
 
 #include <fstream>
 #include <cmath>
+#include <list>
 
 namespace serialization {
   
@@ -21,11 +22,6 @@ namespace serialization {
       value.save((*this));
     }
     
-    template<class T>
-    void operator() (const char* id, T& value) const {
-      (*this)(value);
-    }
-  
   };
   
   template<>

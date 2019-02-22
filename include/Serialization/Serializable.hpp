@@ -13,7 +13,7 @@ namespace serialization {
     virtual ~Serializable();
     
     virtual void save( const BinaryWriter& writer ) const = 0;    
-    virtual void load(BinaryReader& read) = 0;
+    virtual void load(BinaryReader& reader) = 0;
 
   };
 

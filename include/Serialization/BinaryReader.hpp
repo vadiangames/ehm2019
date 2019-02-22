@@ -4,6 +4,7 @@
 #include <Serialization/DLL.hpp>
 #include <fstream>
 #include <cmath>
+#include <list>
 
 namespace serialization {
   class SERIALIZATION_DLL BinaryReader {
@@ -51,6 +52,7 @@ namespace serialization {
 
   template<>
   void SERIALIZATION_DLL BinaryReader::operator()(std::string& value);
+
 }
 
 #endif
