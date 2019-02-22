@@ -1,5 +1,7 @@
 
+
 #include <Serialization/BinaryWriter.hpp>
+#include <Serialization/Endianness.hpp>
 
 namespace serialization {
     
@@ -10,36 +12,42 @@ namespace serialization {
     SERIALIZATION_DLL BinaryWriter::~BinaryWriter() {
       
     }
-    
+
     template<>
     void SERIALIZATION_DLL BinaryWriter::operator()(const uint16_t& value) const {
-      m_Stream.write(reinterpret_cast<const char*>(&value), sizeof(uint16_t));
+      uint16_t tmp = endian::to_little_endian(value);
+      m_Stream.write( reinterpret_cast<const char*>(&tmp), sizeof(uint16_t));
     }
 
     template<>
     void SERIALIZATION_DLL BinaryWriter::operator()(const int16_t& value) const {
-      m_Stream.write(reinterpret_cast<const char*>(&value), sizeof(int16_t));
+      int16_t tmp = endian::to_little_endian(value);
+      m_Stream.write( reinterpret_cast<const char*>(&tmp), sizeof(int16_t));
     } 
 
     template<>
     void SERIALIZATION_DLL BinaryWriter::operator()(const uint32_t& value) const {
-      m_Stream.write(reinterpret_cast<const char*>(&value), sizeof(uint32_t));
+      uint32_t tmp = endian::to_little_endian(value);
+      m_Stream.write( reinterpret_cast<const char*>(&tmp), sizeof(uint32_t));
     }
 
     template<>
     void SERIALIZATION_DLL BinaryWriter::operator()(const int32_t& value) const {
-      m_Stream.write(reinterpret_cast<const char*>(&value), sizeof(int32_t));
+      int32_t tmp = endian::to_little_endian(value);
+      m_Stream.write( reinterpret_cast<const char*>(&tmp), sizeof(uint32_t));
     } 
 
     template<>
     void SERIALIZATION_DLL BinaryWriter::operator()(const uint64_t& value) const {
-      m_Stream.write(reinterpret_cast<const char*>(&value), sizeof(uint64_t));
-    }
+      uint64_t tmp = endian::to_little_endian(value);
+      m_Stream.write( reinterpret_cast<const char*>(&tmp), sizeof(uint64_t));
+   }
 
     template<>
     void SERIALIZATION_DLL BinaryWriter::operator()(const int64_t& value) const {
-      m_Stream.write(reinterpret_cast<const char*>(&value), sizeof(int64_t));
-    }
+      int64_t tmp = endian::to_little_endian(value);
+      m_Stream.write( reinterpret_cast<const char*>(&tmp), sizeof(int64_t));
+   }
 
     template<>
     void SERIALIZATION_DLL BinaryWriter::operator()(const std::string& value) const {
@@ -50,17 +58,20 @@ namespace serialization {
     
     template<>
     void SERIALIZATION_DLL BinaryWriter::operator()(const float& value) const {
-      m_Stream.write(reinterpret_cast<const char*>(&value), sizeof(float));
+      float tmp = endian::to_little_endian(value);
+      m_Stream.write( reinterpret_cast<const char*>(&tmp), sizeof(float));
     }
+    
     template<>
-
     void SERIALIZATION_DLL BinaryWriter::operator()(const double& value) const {
-      m_Stream.write(reinterpret_cast<const char*>(&value), sizeof(double));
+      double tmp = endian::to_little_endian(value);
+      m_Stream.write( reinterpret_cast<const char*>(&tmp), sizeof(double));
     }
 
     template<>
-    void SERIALIZATION_DLL BinaryWriter::operator()(const double_t& value) const {
-      m_Stream.write(reinterpret_cast<const char*>(&value), sizeof(double_t));
+    void SERIALIZATION_DLL BinaryWriter::operator()(const long double& value) const {
+      long double tmp = endian::to_little_endian(value);
+      m_Stream.write( reinterpret_cast<const char*>(&tmp), sizeof(long double));
     }
 
     

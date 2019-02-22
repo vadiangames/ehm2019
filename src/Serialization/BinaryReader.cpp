@@ -1,5 +1,6 @@
 
 #include <Serialization/BinaryReader.hpp>
+#include <Serialization/Endianness.hpp>
 
 namespace serialization {
  
@@ -14,46 +15,73 @@ namespace serialization {
   template<>
   void SERIALIZATION_DLL BinaryReader::operator()(uint16_t& value) {
     m_Stream.read(reinterpret_cast<char*>(&value), sizeof(uint16_t));
+    #ifdef BIG_ENDIAN
+      value = serialization::endian::swap_endian(value);
+    #endif
   }
 
   template<>
   void SERIALIZATION_DLL BinaryReader::operator()(int16_t& value) {
     m_Stream.read(reinterpret_cast<char*>(&value), sizeof(int16_t));
+    #ifdef BIG_ENDIAN
+      value = serialization::endian::swap_endian(value);
+    #endif
   } 
 
   template<>
   void SERIALIZATION_DLL BinaryReader::operator()(uint32_t& value) {
     m_Stream.read(reinterpret_cast<char*>(&value), sizeof(uint32_t));
+    #ifdef BIG_ENDIAN
+      value = serialization::endian::swap_endian(value);
+    #endif
   }
 
   template<>
   void SERIALIZATION_DLL BinaryReader::operator()(int32_t& value) {
     m_Stream.read(reinterpret_cast<char*>(&value), sizeof(int32_t));
+    #ifdef BIG_ENDIAN
+      value = serialization::endian::swap_endian(value);
+    #endif
   } 
 
   template<>
   void SERIALIZATION_DLL BinaryReader::operator()(uint64_t& value) {
     m_Stream.read(reinterpret_cast<char*>(&value), sizeof(uint64_t));
+    #ifdef BIG_ENDIAN
+      value = serialization::endian::swap_endian(value);
+    #endif
   }
 
   template<>
   void SERIALIZATION_DLL BinaryReader::operator()(int64_t& value) {
     m_Stream.read(reinterpret_cast<char*>(&value), sizeof(int64_t));
+    #ifdef BIG_ENDIAN
+      value = serialization::endian::swap_endian(value);
+    #endif
   }
   
   template<>
   void SERIALIZATION_DLL BinaryReader::operator()(double_t& value) {
     m_Stream.read(reinterpret_cast<char*>(&value), sizeof(double_t));
+    #ifdef BIG_ENDIAN
+      value = serialization::endian::swap_endian(value);
+    #endif
   }
 
   template<>
   void SERIALIZATION_DLL BinaryReader::operator()(double& value) {
     m_Stream.read(reinterpret_cast<char*>(&value), sizeof(double));
+    #ifdef BIG_ENDIAN
+      value = serialization::endian::swap_endian(value);
+    #endif
   }
   
   template<>
   void SERIALIZATION_DLL BinaryReader::operator()(float& value) {
     m_Stream.read(reinterpret_cast<char*>(&value), sizeof(float));
+    #ifdef BIG_ENDIAN
+      value = serialization::endian::swap_endian(value);
+    #endif
   }
   
   template<>

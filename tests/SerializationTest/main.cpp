@@ -29,10 +29,11 @@ class TestClass : public serialization::Serializable {
 };
 
 
+
 int main(int argc, char** argv) {
  
   std::fstream log("SerializationTest.log", std::ios_base::out);
- 
+
   int16_t val1 = 1;
   uint16_t val2 = 2;
   int32_t val3 = 3;
@@ -43,7 +44,8 @@ int main(int argc, char** argv) {
   float val8 = 1.2345;
   double val9 = 6.7890;
   TestClass val10(99);
-  
+  int32_t val11 = -1234;
+ 
   log << "Write Data... ";
   
   {
@@ -61,6 +63,7 @@ int main(int argc, char** argv) {
         writer(val8);
         writer(val9);
         writer(val10);
+        writer(val11);
     }
     stream.close();
   }
@@ -77,6 +80,7 @@ int main(int argc, char** argv) {
   float ret8 = 0;
   double ret9 = 0;
   TestClass ret10(0);
+  int32_t ret11 = 0;
   
   log << "Read data... ";
   
@@ -95,6 +99,7 @@ int main(int argc, char** argv) {
         reader(ret8);
         reader(ret9);
         reader(ret10);
+        reader(ret11);
     }
     stream.close();
   }
@@ -151,6 +156,10 @@ int main(int argc, char** argv) {
     return -1;
   }
   
+  if(val11 != ret11) {
+    log << "[ERROR] ret11 has wrong value " << ret11 << " should be " << val11 << std::endl;
+    return -1;
+  }
   
   log << "[SUCCESFUL]" << std::endl;
   log.close();
